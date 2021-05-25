@@ -38,6 +38,7 @@ int misDatos[75] = {0};   // sliding array with 100 values
 int myMax = 0; //// find the maximum fron that array on the fly
 int myCounter = 0;
 int myTmpMax = 0;
+//const char dato = "42";
 
 ///////////////////////
 
@@ -60,6 +61,8 @@ int dataIN = 0 ; //variable para la data que ingresa por el blutu serie
 void sensorLanaPecho () { //funcion donde esta el sensado
 
   sensorValue = analogRead(analogInPin);//lectura sensor
+  Serial.print("sensorValue :");
+  Serial.println(sensorValue);
   outputValue = map(sensorValue, 0, 1023, 1, 10);//mapeo
 
   if (outputValue >= 3 )//si es mayor que el umbral
@@ -145,7 +148,7 @@ void loop() {
         if ( dataIN == 253 ) { //si me llega el ultimo dato de cierre y coincide envio todos los datos almacenados
 
             Udp.beginPacket(ip, 8888);
-            Udp.write("datos");
+            Udp.write(datoL2);
             Udp.endPacket();
             Serial.println("data sent");
 
@@ -163,12 +166,20 @@ void loop() {
         break;
     }
 
-    // for testing, remove this once we have actual data
-    Udp.beginPacket(ip, 8888);
-    Udp.write("test datos");
-    Udp.endPacket();
-    Serial.println("data sent");
-    
+    //dato = const char(datoL2);
+    if (datoL2 == 1) {
+      Udp.beginPacket(ip, 8888);
+      Udp.write("1");
+      Udp.endPacket();
+      Serial.println("data one sent"); 
+    }
+    else if (datoL2 == 2 ){
+      Udp.beginPacket(ip, 8888);
+      Udp.write("2");
+      Udp.endPacket();
+      Serial.println("data dos sent");
+    }
+
     delay(100);//cualquier cosa modificar un poco este delay
   }
        
