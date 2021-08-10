@@ -1,6 +1,8 @@
 /* Creates a WiFI access point (default IP is 192.168.4.1) opens up Udp port 8888 and accepts data. 
    hacked from the ESP8266 AP and Udp examples by Alexandre Castonguay for Yesica Duarte
 */ 
+// matches with version 5 of the client
+
 /// TODO : Merge with the sensor receive code and sending to Unity ////
 
 #include <ESP8266WiFi.h>
@@ -17,7 +19,7 @@ WiFiUDP Udp;
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.println();
 
   Serial.print("Setting soft-AP ... ");
@@ -43,7 +45,7 @@ void loop()
   // if there's data available, read a packet
   int packetSize = Udp.parsePacket();
   if (packetSize) {
-    /*Serial.printf("Received packet of size %d from %s:%d\n    (to %s:%d, free heap = %d B)\n",
+   /* Serial.printf("Received packet of size %d from %s:%d\n    (to %s:%d, free heap = %d B)\n",
                   packetSize,
                   Udp.remoteIP().toString().c_str(), Udp.remotePort(),
                   Udp.destinationIP().toString().c_str(), Udp.localPort(),
@@ -59,6 +61,8 @@ void loop()
     Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
     Udp.write(ReplyBuffer);
     Udp.endPacket();
+
+    delay(100);
   }
 
 }

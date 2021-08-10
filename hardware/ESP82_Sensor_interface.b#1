@@ -21472,13 +21472,16 @@ design rules under a new name.</description>
 <vertex x="26.4" y="63.2"/>
 <vertex x="25.9568125" y="0.399171875"/>
 <vertex x="25.756553125" y="0.399440625"/>
+<vertex x="25.756553125" y="0.399440625"/>
 <vertex x="25.9565625" y="0.3025125"/>
 <vertex x="0.10408125" y="0.433690625"/>
 </polygon>
+<contactref element="S1" pad="3"/>
 <wire x1="1.69408125" y1="46.9949625" x2="4.0449625" y2="46.9949625" width="0.254" layer="1"/>
 <wire x1="4.0449625" y1="46.9949625" x2="4.05" y2="47" width="0.254" layer="1"/>
 <wire x1="4.05" y1="47" x2="6.1" y2="44.95" width="0.254" layer="1"/>
 <wire x1="6.1" y1="44.95" x2="6.1" y2="17.5" width="0.254" layer="1"/>
+<wire x1="6.1" y1="17.5" x2="3.95" y2="15.35" width="0.254" layer="1"/>
 <contactref element="JP2" pad="1"/>
 <wire x1="1.69408125" y1="46.9949625" x2="5.55" y2="50.85088125" width="0.254" layer="16"/>
 <wire x1="5.55" y1="50.85088125" x2="5.55" y2="60.8" width="0.254" layer="16"/>
@@ -21489,10 +21492,6 @@ design rules under a new name.</description>
 <wire x1="18.11" y1="54.81" x2="16.75" y2="53.45" width="0.254" layer="1"/>
 <wire x1="16.31" y1="62.55" x2="18.11" y2="60.75" width="0.254" layer="16"/>
 <wire x1="7.3" y1="62.55" x2="16.31" y2="62.55" width="0.254" layer="16"/>
-<contactref element="S1" pad="2"/>
-<wire x1="6.1" y1="17.5" x2="6.1" y2="13.75" width="0.1524" layer="1"/>
-<wire x1="4.7" y1="12.35" x2="3.95" y2="12.35" width="0.1524" layer="1"/>
-<wire x1="6.1" y1="13.75" x2="4.7" y2="12.35" width="0.1524" layer="1"/>
 </signal>
 <signal name="N$6">
 </signal>

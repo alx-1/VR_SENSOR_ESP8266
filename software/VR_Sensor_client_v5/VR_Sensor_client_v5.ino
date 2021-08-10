@@ -49,69 +49,24 @@ StreamOut serialOut;
 
 AdaptiveNormalizer norm;
 
-Thresholder peakDetector(0.9, THRESHOLD_RISING, 0.8);
+Thresholder peakDetector(0.7, THRESHOLD_RISING, 0.5);
 
 //// WiFi socket connection ////
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-
-//#include <Arduino.h>
-//#include <Ewma.h>
-
-//Ewma adcFilter1(0.1);   // Less smoothing - faster to detect changes, but more prone to noise
-
-
 const char* ssid     = "ESPdatos";
 const char* password = "respiracion";
-
 IPAddress ip(192, 168, 4, 1);
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 WiFiUDP Udp;
 //// Fin WiFi socket connection ////
 
-////// para la calibración ////
-//bool calibrate = 1; // Set flag so this is executed once at the start
-//int numberofMeasures = 0;
-//int sensorMax = 0; // Valeurs initiales pour être remplacées
-//int sensorMin = 1023; // Valeurs initiales pour être remplacées
-//int storedSensorValue = 0;
-//int misDatosMax[10] = {0};  // sliding array with 5 values
-//int misDatosMin[10] = {0};
-///// Fin calibración ////
-
-//// para sensorLanaPecho ////
-//const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
-//int sensorValue = 0;        // value read from the pot
-//float filteredSensorValue;
-//int outputValue = 0;        // value output to the PWM (analog out)
-//int moyenneMax = 0;
-//int moyenneMin = 0;
-//int counter = 0;
-//int tmpMaxSensorValue;
-//int tmpMinSensorValue;
-//bool maxFlag = true;
-//bool minFlag = true;
 int datoL2 = 0; // Indicates state of breathing "1" or "2"
-//// Fin sensorLanaPecho ////
 
-///// para autoAdjust /////
+unsigned long leTemps = 0;
+unsigned long elViejoTiempo = 0;
+unsigned long intervalleEntreResp = 0;
 
-// store sensorValues in a 5 value array to get a clear sense of if the cycle is increasing or decreasing
-
-int unCompteur = 0;
-// int cyclePositionDetect[5] = {0}; // déclaration d'un tableau contenant 5 valeurs
-int monTotal;
-int maMoyenne;
-int viejaMoyenne;
-int maDiff;
-bool flagBias = true;
-bool oldFlagBias = true;
-
-///// Fin autoAdjust /////
-
-
-//void setup() {
-  
 void begin() {
 
   Serial.begin(9600);
@@ -132,7 +87,6 @@ void begin() {
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 
-
   pinMode (LED_BUILTIN, OUTPUT); // LED del ESP8266
 
   for ( int i = 0 ; i < 5 ; i++ ) { //el led parpadea 5 veces para saludar!
@@ -142,7 +96,7 @@ void begin() {
     delay ( 100 ) ;
   }
 
-  digitalWrite (LED_BUILTIN, LOW);//apago led por las dudas
+  digitalWrite (LED_BUILTIN, HIGH);//apago led por las dudas reverse para los ESP8266
 
   // Smooth over a window of 100ms (ie. one tenth of a second).
   // NOTE: Try changing the smoothing value to see how it affects the outputs.
@@ -154,53 +108,54 @@ void begin() {
 
 
 void step() {
-  in >> norm >> peakDetector;
-  Serial.print(6 * norm);
-  Serial.print(" ");
-  Serial.println(6 * peakDetector);
-
-  if (peakDetector == 1){
-    datoL2 == 1; // peak detected
-  }
-  else{
-    datoL2 == 2; // nope
-  }
-
-    if (datoL2 == 1) {
-      Udp.beginPacket(ip, 8888);
-      Udp.write("belly,1");
-      Udp.endPacket();
-      // Serial.println("data one sent");
-    }
-    else if (datoL2 == 2 ) {
-      Udp.beginPacket(ip, 8888);
-      Udp.write("belly,2");
-      Udp.endPacket();
-      //  Serial.println("data dos sent");
-    }
   
-} // fin step
+  in >> norm >> peakDetector;
+  //Serial.print(6 * norm);
+  //Serial.print(6 * norm);
+  //Serial.println(" ");
+  
+  //Udp.beginPacket(ip, 8888);
+  //String msg = String(localData.temp);
+  
+  //char buffer[10];
+  //sprintf (buffer, "%5.2f", in);
+  //Udp.write(in);
+  //Udp.endPacket();
+  // Serial.println(6 * peakDetector);
+  // Serial.print(" ");
 
-//void loop() {
-//
-//  if (calibrate == 1) {
-//    calibracion (); // execute once at the start
-//  }
-//
-//  sensorLanaPecho (); //función donde esta el sensado de la respiracion
-//
-//  if (datoL2 == 1) {
-//    Udp.beginPacket(ip, 8888);
-//    Udp.write("belly,1");
-//    Udp.endPacket();
-//    // Serial.println("data one sent");
-//  }
-//  else if (datoL2 == 2 ) {
-//    Udp.beginPacket(ip, 8888);
-//    Udp.write("belly,2");
-//    Udp.endPacket();
-//    //  Serial.println("data dos sent");
-//  }
-//
-//  delay(500);
-//}
+  if (peakDetector == 1) {
+    leTemps = millis();
+    intervalleEntreResp = millis()-elViejoTiempo;
+    datoL2 == 1; // peak detected
+    digitalWrite (LED_BUILTIN, LOW);
+    Udp.beginPacket(ip, 8888);
+    Udp.write("chest,2");
+    Udp.endPacket();
+    
+    Serial.println("peak detected, data one sent");
+    Serial.print("intervalle entre respiration : ");
+    Serial.println(intervalleEntreResp);
+
+    elViejoTiempo = leTemps;
+    
+  }
+  else if ( (millis() - elViejoTiempo) < intervalleEntreResp/2) {  // si nous sommes à l'intérieur du tiers de l'ijntervalle de respiration
+    digitalWrite (LED_BUILTIN, LOW);
+    Udp.beginPacket(ip, 8888);
+    Udp.write("chest,2");
+    Udp.endPacket();
+    Serial.println("chest, 2");
+    
+  }
+  else {
+    datoL2 == 2; // nope
+    digitalWrite (LED_BUILTIN, HIGH);
+    Udp.beginPacket(ip, 8888);
+    Udp.write("chest,1");
+    Udp.endPacket();
+    
+    Serial.println("chest, 1");
+  }
+
+} // fin step
