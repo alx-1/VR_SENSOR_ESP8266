@@ -21474,8 +21474,8 @@ design rules under a new name.</description>
 <element name="SERIAL" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:6242394" package="1X02" package3d_urn="urn:adsk.eagle:package:6242942/1" value="" x="4.7" y="54" smashed="yes" rot="R180">
 <attribute name="VALUE" x="5.97" y="57.175" size="1.27" layer="27" rot="R180"/>
 </element>
-<element name="U$1" library="WingTechCorner" package="M3-HOLE" value="" x="1.9" y="20.1" smashed="yes"/>
-<element name="U$2" library="WingTechCorner" package="M3-HOLE" value="" x="24.4" y="20.1" smashed="yes"/>
+<element name="U$1" library="WingTechCorner" package="M3-HOLE" value="" x="2.45" y="20.35" smashed="yes"/>
+<element name="U$2" library="WingTechCorner" package="M3-HOLE" value="" x="23.85" y="20.35" smashed="yes"/>
 </elements>
 <signals>
 <signal name="GND">

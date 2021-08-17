@@ -50,6 +50,7 @@ StreamOut serialOut;
 AdaptiveNormalizer norm;
 
 Thresholder peakDetector(0.7, THRESHOLD_RISING, 0.5);
+//Thresholder peakDetector(0.7, THRESHOLD_FALLING, 0.5);
 
 //// WiFi socket connection ////
 #include <ESP8266WiFi.h>
@@ -110,7 +111,6 @@ void begin() {
 void step() {
   
   in >> norm >> peakDetector;
-  //Serial.print(6 * norm);
   //Serial.print(6 * norm);
   //Serial.println(" ");
   
