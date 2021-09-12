@@ -116,14 +116,10 @@ void step() {
   
   //Udp.beginPacket(ip, 8888);
   //String msg = String(localData.temp);
-  
-  //char buffer[10];
-  //sprintf (buffer, "%5.2f", in);
-  //Udp.write(in);
-  //Udp.endPacket();
-  // Serial.println(6 * peakDetector);
-  // Serial.print(" ");
 
+
+
+  
   if (peakDetector == 1) {
     leTemps = millis();
     intervalleEntreResp = millis()-elViejoTiempo;
