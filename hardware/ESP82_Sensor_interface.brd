@@ -20912,6 +20912,8 @@
 <text x="3.77368125" y="33.1361625" size="1.27" layer="26">RX</text>
 <text x="5.2638375" y="50.37368125" size="1.27" layer="26" rot="R90">TX</text>
 <text x="2.7138375" y="50.22368125" size="1.27" layer="26" rot="R90">RX</text>
+<text x="3.92208125" y="40.9369625" size="1.27" layer="25">D3</text>
+<text x="12.5630375" y="50.12208125" size="1.27" layer="25" rot="R90">D3</text>
 </plain>
 <libraries>
 <library name="SparkFun-Connectors">
@@ -21495,9 +21497,7 @@ design rules under a new name.</description>
 <vertex x="0.0960375" y="0.43373125"/>
 </polygon>
 <contactref element="JP2" pad="1"/>
-<wire x1="9.45" y1="57.4" x2="22.4" y2="57.4" width="0.254" layer="16"/>
 <contactref element="JP1" pad="1"/>
-<wire x1="22.4" y1="57.4" x2="21.55" y2="54" width="0.254" layer="16"/>
 <contactref element="S1" pad="3"/>
 <wire x1="21.55" y1="54" x2="21.55" y2="51.209259375" width="0.254" layer="16"/>
 <wire x1="22" y1="50.925925" x2="21.55" y2="51.209259375" width="0.254" layer="16"/>
@@ -21508,6 +21508,16 @@ design rules under a new name.</description>
 <wire x1="4.05" y1="24.7" x2="22" y2="24.7" width="0.254" layer="16"/>
 <wire x1="22" y1="24.7" x2="22" y2="50.925925" width="0.254" layer="16"/>
 <wire x1="3.95" y1="15.35" x2="3.95" y2="15.9706" width="0.254" layer="1"/>
+<wire x1="1.59408125" y1="46.4449625" x2="9.14911875" y2="54" width="0.1524" layer="16"/>
+<wire x1="9.14911875" y1="54" x2="9.45" y2="54" width="0.1524" layer="16"/>
+<wire x1="9.45" y1="54" x2="9.45" y2="56.15" width="0.1524" layer="16"/>
+<wire x1="9.45" y1="56.15" x2="19.4" y2="56.15" width="0.1524" layer="16"/>
+<wire x1="19.4" y1="56.15" x2="21.55" y2="54" width="0.1524" layer="16"/>
+<wire x1="3.95" y1="15.35" x2="3.95" y2="17.54959375" width="0.1524" layer="1"/>
+<wire x1="3.95" y1="17.54959375" x2="5.2262" y2="18.82579375" width="0.1524" layer="1"/>
+<wire x1="5.2262" y1="18.82579375" x2="5.2262" y2="21.37420625" width="0.1524" layer="1"/>
+<wire x1="5.2262" y1="21.37420625" x2="3.9794" y2="22.62100625" width="0.1524" layer="1"/>
+<wire x1="3.9794" y1="22.62100625" x2="3.9794" y2="24.65" width="0.1524" layer="1"/>
 </signal>
 <signal name="N$6">
 </signal>
@@ -21630,6 +21640,12 @@ design rules under a new name.</description>
 <contactref element="SERIAL" pad="1"/>
 <wire x1="4.7" y1="54" x2="4.7" y2="34.31088125" width="0.254" layer="1"/>
 <wire x1="4.7" y1="34.31088125" x2="1.59408125" y2="31.2049625" width="0.254" layer="1"/>
+</signal>
+<signal name="N$1">
+<contactref element="WEMOS2" pad="4"/>
+<contactref element="JP2" pad="2"/>
+<wire x1="1.59408125" y1="41.3649625" x2="11.99" y2="51.76088125" width="0.254" layer="16"/>
+<wire x1="11.99" y1="51.76088125" x2="11.99" y2="54" width="0.254" layer="16"/>
 </signal>
 </signals>
 <mfgpreviewcolors>
